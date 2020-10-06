@@ -1,2 +1,9 @@
-# fintech_project_2
-Columbia Engineering FinTech Project 2
+# Project 2 Fintech Bootcamp
+___
+## Stock Technial Analysis with NLP score
+___
+### Data Gathering
+
+### Trading Signal Generation
+
+### Dashboard
