@@ -13,4 +13,4 @@ pn.extension()
 
 ## NLP classification - King/George
 
-## 3 - Ticker tweets NLP (Good2Have) - King
+## Ticker tweets NLP (Good2Have) - King
