@@ -10,6 +10,9 @@ ___
 
 ### Dashboard
 
+### Instalation
+npm install  --save react-stockcharts 
+
 ### Resources
 1). https://alpaca.markets
 
