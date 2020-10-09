@@ -12,7 +12,9 @@ ___
 
 ### Instalation
 `npm install  --save react-stockcharts`
+
 `npm install -g wscat`
+
 `pip install bta-lib`
 
 ### Resources
