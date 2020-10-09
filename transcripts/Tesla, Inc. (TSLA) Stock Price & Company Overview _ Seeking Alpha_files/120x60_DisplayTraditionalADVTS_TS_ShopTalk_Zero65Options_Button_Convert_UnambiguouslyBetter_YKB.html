@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<!-- saved from url=(0142)https://s0.2mdn.net/2530996/1576694572899/120x60_DisplayTraditionalADVTS_TS_ShopTalk_Zero65Options_Button_Convert_UnambiguouslyBetter_YKB.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="ad.size" content="width=120,height=60">
+    <title>120x60_DisplayTraditionalADVTS_TS_ShopTalk_Zero65Options_Button_Convert_UnambiguouslyBetter_YKB</title>
+
+
+      <style>
+
+        #bdr {
+            width: 118px;
+            height: 58px;
+            position: absolute;
+            overflow: hidden;
+            border: 1px solid #000000;
+            left:0;
+            top:0;
+            pointer-events: none;
+        }
+
+        #container {
+            width: 120px;
+            height:60px;
+            position: absolute;
+            overflow: hidden;
+            cursor: pointer;
+            background-color: gray;
+            opacity: 0;
+        }
+
+       #bg {
+            width: 120px;
+            height:60px;
+            position: absolute;
+            overflow: hidden;
+           background-size: cover;
+            background-image: url('bg.png');
+
+        }
+
+
+        .subLoad #txt1 {
+            width: 120px;
+            height:60px;
+            position: absolute;
+            overflow: hidden;
+           background-size: cover;
+            opacity: 0;
+
+            background-image: url('txt1.png');
+
+        }
+
+       .subLoad #txt2 {
+            width: 120px;
+            height:60px;
+            position: absolute;
+            overflow: hidden;
+           background-size: cover;
+            opacity: 0;
+
+            background-image: url('txt2.png');
+        }
+
+    </style>
+<script type="text/javascript">
+    
+  (function() {
+    var MAX_URL_PARAM_LENGTH = 34;
+    var CLICK_X_URL_KEY = 'nx';
+    var CLICK_Y_URL_KEY = 'ny';
+    var CREATIVE_DIMENSIONS_KEY = 'dim';
+    var AD_URL_PARAM = '&adurl=';
+
+    var relegateNavigation = '';
+    var urlParamMap = {};
+
+    urlParamMap[CLICK_X_URL_KEY] = null;
+    urlParamMap[CLICK_Y_URL_KEY] = null;
+    urlParamMap[CREATIVE_DIMENSIONS_KEY] = null;
+
+    var handleClickTagMessage = function(e) {
+      try {
+        var eventData = JSON.parse(e.data);
+      } catch (err) {
+        return;
+      }
+      if (eventData.isInitClickTag) {
+        if (eventData.clickTags) {
+          for (var i = 0; i < eventData.clickTags.length; i++) {
+            var clkTag = eventData.clickTags[i];
+            window[clkTag.name] = clkTag.url;
+          }
+        } else if (eventData.clickTag) {
+          window.clickTag = eventData.clickTag;
+        }
+        relegateNavigation = eventData.relegateNavigation;
+      }
+    };
+
+    var storeClickCoordinates = function(e) {
+      urlParamMap[CLICK_X_URL_KEY] = Math.round(e.clientX);
+      urlParamMap[CLICK_Y_URL_KEY] = Math.round(e.clientY);
+    };
+
+    var getCreativeDimensions = function() {
+      return window.innerWidth + 'x' + window.innerHeight;
+    }
+
+    var getExitClickParams = function(e) {
+      urlParamMap[CREATIVE_DIMENSIONS_KEY] = getCreativeDimensions();
+
+      var exitParams = '';
+      for (var key in urlParamMap) {
+        exitParams += '&' + key + '=';
+        if (urlParamMap[key] !== null) {
+          exitParams += urlParamMap[key];
+        }
+      }
+      return exitParams;
+    }
+
+    var appendExitClickParams = function(url) {
+      var adUrlIndex = url.toLowerCase().indexOf(AD_URL_PARAM);
+      var paramsToBeAdded = getExitClickParams();
+      if (adUrlIndex > -1 && paramsToBeAdded.length <= MAX_URL_PARAM_LENGTH) {
+        url = url.substr(0, adUrlIndex) + paramsToBeAdded +
+          url.substr(adUrlIndex);
+      };
+      return url;
+    };
+
+    if (open.call) {
+      window.open = function(open) {
+        return function(url, name, features) {
+          url = appendExitClickParams(url);
+          if (relegateNavigation === 'parent') {
+            var message = {'clickTag': url, 'isPostClickTag': true};
+            parent.postMessage(JSON.stringify(message), '*');
+          } else {
+            var args = [url, name];
+            if (features) {
+              args.push(features);
+            }
+            open.apply(window, args);
+          }
+        };
+      }(window.open);
+    }
+
+    if (window.addEventListener) {
+      window.addEventListener(
+          'message', handleClickTagMessage, false);
+      window.addEventListener('mousedown', storeClickCoordinates, true);
+    } else {
+      window.attachEvent('onmessage', handleClickTagMessage);
+    }
+  })();
+    
+  </script><script type="text/javascript" src="./tweenmax_2.1.2_min.js.download"></script></head>
+
+
+    <body style="padding:0px;margin:0px;background-color:#c2c0c0;">
+    <div id="container" class="subLoad" style="visibility: inherit; opacity: 1;">
+        <div id="bg"></div>
+        <div id="txt1" style="opacity: 1;"></div>
+        <div id="txt2" style="opacity: 0;"></div>
+    </div>
+    <div id="bdr"></div>
+
+
+        <!--				Comment in the stuff needed-->
+
+        <!--	DCS-->
+<!--            <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>-->
+
+        <!--	Sizmek-->
+<!--                <script src="https://secure-ds.serving-sys.com/BurstingScript/EBLoader.js"></script>-->
+
+        <!--     //update url for generic clickthrough...DELETE WHEN YOU PUT IN SIZMEK-->
+        <script> var clickTag = 'https://clickthrough.media.clickhere.com/';</script>
+
+        <!-- End -->
+
+    <script type="text/javascript">
+        var tmUrl = "https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js";
+
+
+        function aniGo() {
+           TweenLite.to(container, .25, {autoAlpha: 1});
+//            TweenLite.to(leftLight, {rotation:"30"});
+
+                TweenLite.to(txt1, 0.25, {alpha:1, delay:1, ease:Power0.easeNone});
+                TweenLite.to(txt1, 0.25, {alpha:0, delay:3, ease:Power0.easeNone});
+                
+                TweenLite.to(txt2, 0.25, {alpha:1, delay:3.5, ease:Power0.easeNone});
+                TweenLite.to(txt2, 0.25, {alpha:0, delay:5.5, ease:Power0.easeNone});
+                
+                TweenLite.to(txt1, 0.25, {alpha:1, delay:6, ease:Power0.easeNone});
+                TweenLite.to(txt1, 0.25, {alpha:0, delay:8, ease:Power0.easeNone});
+                
+                TweenLite.to(txt2, 0.25, {alpha:1, delay:8.5, ease:Power0.easeNone});
+                TweenLite.to(txt2, 0.25, {alpha:0, delay:10.5, ease:Power0.easeNone});
+                
+                TweenLite.to(txt1, 0.25, {alpha:1, delay:11, ease:Power0.easeNone});
+
+
+        }
+
+        function subLoader(){
+
+
+            document.getElementById("container").classList.add('subLoad');
+
+
+
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+
+            if (script.readyState) { //IE
+                script.onreadystatechange = function() {
+                    if (script.readyState == "loaded" ||
+                        script.readyState == "complete") {
+                        script.onreadystatechange = null;
+                        aniGo();
+                    }
+                };
+            } else { //Others
+                script.onload = function() {
+                    aniGo();
+                };
+            }
+
+            script.src = tmUrl;
+            document.getElementsByTagName("head")[0].appendChild(script);
+        }
+
+
+
+        function loadBanner() {
+            document.getElementById('container').addEventListener('click', clickThrough);
+            setTimeout(subLoader, 50);
+        }
+
+       function clickThrough() {
+            if (typeof EB != 'undefined') {
+
+                EB.clickthrough();
+            } else if (typeof Enabler != 'undefined') {
+                Enabler.exit("bg exit");
+
+            } else {
+
+                window.open(clickTag);
+            }
+        }
+
+        function checkIt(){
+            if (typeof EB != 'undefined' && !EB.isInitialized()) {
+
+                EB.addEventListener(EBG.EventName.EB_INITIALIZED, loadBanner);
+            } else if (typeof EB != 'undefined') {
+                tmUrl = "https://secure-ds.serving-sys.com/BurstingcachedScripts/libraries/greensock/1_19_0/TweenMax.min.js";
+                //Changing to an 'else if' to prevent firing on 'Vanilla' banners
+
+                loadBanner();
+
+            } else if (typeof Enabler != 'undefined' && !Enabler.isInitialized()) {
+                Enabler.addEventListener(studio.events.StudioEvent.INIT, enablerInitialized);
+            } else {
+                enablerInitialized();
+                tmUrl="https://s0.2mdn.net/ads/studio/cached_libs/tweenmax_2.1.2_min.js";
+            }
+
+            function enablerInitialized(e) {
+                //Removed 'loadBanner' call as the event listeners below have that covered
+                if (typeof Enabler != 'undefined' && !Enabler.isVisible()) {
+                    Enabler.addEventListener(studio.events.StudioEvent.VISIBLE, adVisible);
+
+                } else {
+                    adVisible();
+                }
+            }
+
+            function adVisible() {
+
+                loadBanner();
+            }
+        }
+
+        window.onload = checkIt;
+        </script>
+
+
+
+
+</body></html>
