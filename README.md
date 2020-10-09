@@ -12,6 +12,9 @@ ___
 
 ### Resources
 1). https://alpaca.markets
+
 2). https://polygon.io
+
 3). https://github.com/mementum/bta-lib
+
 4). https://github.com/rrag/react-stockcharts
