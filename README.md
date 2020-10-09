@@ -11,7 +11,9 @@ ___
 ### Dashboard
 
 ### Instalation
- `npm install  --save react-stockcharts`
+`npm install  --save react-stockcharts`
+`npm install -g wscat`
+`pip install bta-lib`
 
 ### Resources
 1). https://alpaca.markets
