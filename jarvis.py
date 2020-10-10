@@ -10,6 +10,7 @@ import requests
 import re
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from bs4 import BeautifulSoup as bs
+import pyarrow
 import panel as pn
 pn.extension()
 from dotenv import load_dotenv
@@ -70,7 +71,14 @@ def transcript_nlp(ticker='TSLA'):
 ## NLP classification - King/George
 
 ## Ticker tweets NLP (Good2Have) - King
-def tweet_search_by_user(handle, count=10):
+def tweet_search_by_user(handle, count=10, since_id=None):
+    file_name = f'tweets_{handle}.feather'
+    # read or init a dataFrame
+    if os.path.isfile(file_name):
+        df = pd.read_feather(file_name)
+    else:
+        df = pd.DataFrame()
+    
     from requests_oauthlib import OAuth1
     url_rest = "https://api.twitter.com/1.1/search/tweets.json"
     auth = OAuth1(
@@ -79,7 +87,16 @@ def tweet_search_by_user(handle, count=10):
         os.getenv('TWTR_ACCESS_TOKEN'),
         os.getenv('TWTR_TOKEN_SECRET')
     )
+    
     params = {'q': handle, 'count': count, 'lang': 'en',  'result_type': 'recent'}
-    headers = {"Authorization": f"Bearer {twtr_token}"}
+    if since_id == None:
+        params['since_id'] = since_id
+
+    headers = {"Authorization": f"Bearer {os.getenv('TWTR_BEARER_TOKEN')}"}
     results = requests.get(url_rest, params=params, auth=auth)
-    return results.text if results.status_code == 200 else None
+    if results.status_code == 200:
+        df.append(pd.DataFrame.from_dict(json.loads(response.text)['statuses']))
+        df.write_feather(file_name)
+    
+    return df
+    
