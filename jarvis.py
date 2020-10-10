@@ -71,7 +71,7 @@ def transcript_nlp(ticker='TSLA'):
 ## NLP classification - King/George
 
 ## Ticker tweets NLP (Good2Have) - King
-def tweet_search_by_user(handle, count=10, since_id=None):
+def tweet_search_by_user(handle, count=10):
     file_name = f'tweets_{handle}.feather'
     # read or init a dataFrame
     if os.path.isfile(file_name):
@@ -89,8 +89,8 @@ def tweet_search_by_user(handle, count=10, since_id=None):
     )
     
     params = {'q': handle, 'count': count, 'lang': 'en',  'result_type': 'recent'}
-    if since_id == None:
-        params['since_id'] = since_id
+    if df.empty == False:
+        params['since_id'] = df.id.max()
 
     headers = {"Authorization": f"Bearer {os.getenv('TWTR_BEARER_TOKEN')}"}
     results = requests.get(url_rest, params=params, auth=auth)
