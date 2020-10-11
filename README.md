@@ -10,7 +10,7 @@ ___
 
 ### Dashboard
 
-### Instalation
+### Installation
 `npm install  --save react-stockcharts`
 
 `npm install -g wscat`
