@@ -111,7 +111,6 @@ def tweet_search_by_user(handle, count=10):
     
     return df
 
-
 # main streaming connection - King
 def main(args):
     print(f'Start Streaming ticker: {args[0]}')
