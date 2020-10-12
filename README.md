@@ -25,3 +25,4 @@ ___
 3). https://github.com/mementum/bta-lib
 
 4). https://github.com/rrag/react-stockcharts
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.dayofweek.html
