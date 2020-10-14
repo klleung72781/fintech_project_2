@@ -26,3 +26,5 @@ ___
 
 4). https://github.com/rrag/react-stockcharts
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.dayofweek.html
+
+5). https://github.com/FreddieWitherden/ta
