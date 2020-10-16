@@ -20,7 +20,9 @@ api = tradeapi.REST(api_key, api_secret, base_url, api_version='v2')
 
 #obtain account information
 account = api.get_account()
-print(account)
+
+sys.path.append('.')
+import algo_lib
 
 def update_df(file_name):
     df = pd.read_feather(file_name)
@@ -40,39 +42,90 @@ def update_df(file_name):
     df.index = df.index.astype('<M8[ns]')
     return df
 
-def generate_signal(df):
-    #generating signal
-    SHORT_WINDOW = 50
-    LONG_WINDOW = 200
-    df['fast_close'] = df.Close.ewm(halflife = SHORT_WINDOW).mean()
-    df['slow_close'] = df.Close.ewm(halflife = SHORT_WINDOW).mean()
-
-    df['crossover_long'] = np.where(df.fast_close > df.slow_close, 1.0, 0.0)
-    df['crossover_short'] = np.where(df.fast_close < df.slow_close, -1.0, 0.0)
-    df['crossover_signal'] = df.crossover_long + df.crossover_short
-
-    return df.tail(1)[['crossover_signal']]
-
-def prediction(crossover_signal):
-    model = load('random1_forest_model.joblib')
+def prediction(ticker, crossover_signal):
+    model = load(f'{ticker}_daily.joblib')
     return model.predict(crossover_signal)
 
 def get_bar(ticker):
     return api.get_barset(ticker.upper(), 'day', limit=1)[ticker.upper()][0].c
 
-def trading_decision(ticker, side):
-    api.submit_order(
-        symbol = ticker,
-        qty = 1,
-        side = 'buy'
+def make_trade(signal, ticker, amount):
+    # first get the last trade on this ticker
+    order_list = api.list_orders(
+        status = 'closed',
+        limit = 200
     )
+    order_dict = [
+        order._raw for order in order_list
+        if order._raw['symbol'] == ticker and order._raw['status'] != 'canceled'
+    ]
+    last_trade = [] if len(order_dict) == 0 else order_dict[-1]
+    last_side = 'sell' if len(order_dict) == 0 else order_dict[-1]['side']
+
+    # decision
+    if signal == 1:
+        side = 'buy' if last_side == 'sell' else None
+        qty = (
+            round(amount/api.get_last_quote('TSLA')._raw['askprice'])
+            if last_side == 'sell' else None
+        )
+    elif signal == 0:
+        side = 'sell' if last_side == 'buy' else None
+        qty = last_trade['qty'] if last_side == 'buy' else None
+    else:
+        side = None
+
+    # trade!!!
+    if side != None:
+        print(f'''
+    +++++++++++++++++++++++++++++++++++++++++++++++++
+    Decision: {side}ing {qty} shares of {ticker}
+    +++++++++++++++++++++++++++++++++++++++++++++++++
+        ''')
+        new_order = api.submit_order(
+            symbol = ticker,
+            qty = qty,
+            side = side,
+            type = 'market',
+            time_in_force = 'gtc'
+        )
+        return new_order._raw['client_order_id']
+    
 
 
 def main(args):
-    print(args[0])
-    df = update_df('df_close.feather')
-    crossover_signal = generate_signal(df)
-    print(prediction(crossover_signal))
+    # Init
+    ticker = args[0]
+    amount = int(args[1])
+    print(f'''
+    +++++++++++++++++++++++++++++++++++++++++++++++++
+    Initialize {ticker} Trading Decision for ${amount}
+    +++++++++++++++++++++++++++++++++++++++++++++++++
+    ''')
+    
+    # Load and update historical dataframe
+    df = update_df(f'{ticker}_daily.feather')
+    
+    # Generate signal
+    crossover_signal = algo_lib.crossover_signal(
+        df, ['crossover_signal']
+    ).tail(1)[['crossover_signal']]
+
+    # Make prediction
+    signal = prediction(ticker, crossover_signal)[0]
+    print(f'''
+    +++++++++++++++++++++++++++++++++++++++++++++++++
+    Signal = {signal}
+    +++++++++++++++++++++++++++++++++++++++++++++++++
+    ''')
+
+    # Final execution
+    order_id = make_trade(signal, ticker, amount)
+    print(f'''
+    +++++++++++++++++++++++++++++++++++++++++++++++++
+    Order accepted - Client Order ID: {order_id}
+    +++++++++++++++++++++++++++++++++++++++++++++++++
+    ''')
 
 if __name__ == '__main__':
     main(sys.argv[1:])
