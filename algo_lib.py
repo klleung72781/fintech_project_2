@@ -15,7 +15,7 @@ def historical_daily(ticker):
 def historical_hourly(ticker):
     data = yf.download(
         tickers = ticker,
-        period = '730h',# max hourly history needs to be hardcoded
+        period = '730d',# max hourly history needs to be hardcoded
         interval = '1h'
     )
     return data

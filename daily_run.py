@@ -24,22 +24,24 @@ account = api.get_account()
 sys.path.append('.')
 import algo_lib
 
-def update_df(file_name):
-    df = pd.read_feather(file_name)
-    df.drop(df.tail(1).index, inplace=True) #dropping last empty row
+def update_df(ticker):
+    # df = pd.read_feather(file_name)
+    # df.drop(df.tail(1).index, inplace=True) #dropping last empty row
     
-    # append df with new data
-    last_close = get_bar('TSLA')
-    today = date.today()
-    new_row = pd.Series({
-        'Date': today.strftime("%Y-%m-%d"),
-        'Close': last_close,
-        'Daily_return': last_close - df.Close[len(df)-1]
-    })
-    df = df.append(new_row, ignore_index=True)
+    # # append df with new data
+    # last_close = get_bar('TSLA')
+    # today = date.today()
+    # new_row = pd.Series({
+    #     'Date': today.strftime("%Y-%m-%d"),
+    #     'Close': last_close,
+    #     'Daily_return': last_close - df.Close[len(df)-1]
+    # })
+    # df = df.append(new_row, ignore_index=True)
     
-    df.set_index('Date', inplace=True)
-    df.index = df.index.astype('<M8[ns]')
+    # df.set_index('Date', inplace=True)
+    # df.index = df.index.astype('<M8[ns]')
+    df = algo_lib.historical_daily(ticker)
+    df['Daily_return'] = df.Close.dropna().pct_change()
     return df
 
 def prediction(ticker, crossover_signal):
@@ -50,28 +52,24 @@ def get_bar(ticker):
     return api.get_barset(ticker.upper(), 'day', limit=1)[ticker.upper()][0].c
 
 def make_trade(signal, ticker, amount):
-    # first get the last trade on this ticker
-    order_list = api.list_orders(
-        status = 'closed',
-        limit = 200
-    )
-    order_dict = [
-        order._raw for order in order_list
-        if order._raw['symbol'] == ticker and order._raw['status'] != 'canceled'
+    # first get all positions
+    positions = [
+        position._raw for position in api.list_positions()
+        if position._raw['symbol'] == ticker
     ]
-    last_trade = [] if len(order_dict) == 0 else order_dict[-1]
-    last_side = 'sell' if len(order_dict) == 0 else order_dict[-1]['side']
+        
+    position = positions[0] if len(positions) > 0 else None
 
     # decision
     if signal == 1:
-        side = 'buy' if last_side == 'sell' else None
+        side = 'buy' if position == None else None
         qty = (
             round(amount/api.get_last_quote('TSLA')._raw['askprice'])
-            if last_side == 'sell' else None
+            if position == None else None
         )
     elif signal == 0:
-        side = 'sell' if last_side == 'buy' else None
-        qty = last_trade['qty'] if last_side == 'buy' else None
+        side = 'sell' if position != None else None
+        qty = position['qty'] if position != None else None
     else:
         side = None
 
@@ -104,7 +102,7 @@ def main(args):
     ''')
     
     # Load and update historical dataframe
-    df = update_df(f'{ticker}_daily.feather')
+    df = update_df(ticker)
     
     # Generate signal
     crossover_signal = algo_lib.crossover_signal(
@@ -121,11 +119,18 @@ def main(args):
 
     # Final execution
     order_id = make_trade(signal, ticker, amount)
-    print(f'''
+    if order_id != None:
+        print(f'''
     +++++++++++++++++++++++++++++++++++++++++++++++++
     Order accepted - Client Order ID: {order_id}
     +++++++++++++++++++++++++++++++++++++++++++++++++
-    ''')
+        ''')
+    else:
+        print(f'''
+    +++++++++++++++++++++++++++++++++++++++++++++++++
+    Staying Put... No action on {ticker}
+    +++++++++++++++++++++++++++++++++++++++++++++++++
+        ''')
 
 if __name__ == '__main__':
     main(sys.argv[1:])
