@@ -145,6 +145,7 @@ The diagram directly above shows the model that Group Two ultimately used.
 ## Installation
 
 Installation
+
 `npm install --save react-stockcharts`
 
 `npm install -g wscat`
