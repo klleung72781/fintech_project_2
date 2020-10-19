@@ -2,12 +2,24 @@
 
 
 
+## Installation
+
+Installation
+npm install --save react-stockcharts
+
+npm install -g wscat
+
+pip install bta-lib
+
+
+
+
 ## Introduction
 
 ### General
 Group Two started this project with the ambition to construct a software service that leverages the knowledge acquired thus far in the Columbia FinTech Boot Camp. A complete trading system based on the lessons would fortify the understanding of the material from the modules and lead Group Two to exciting new opportunities for composing high-value products.  Group Two aims to compose a profitable trading system using the lessons learned on leveraging application programming interfaces (APIs), statistical models, technical analysis indicators, and artificial intelligence. 
 The introduction discusses in broad terms the components in building such a system. Each component will receive a summary in this introduction. The introduction aims to provide an understanding to the reader in terms of the general approach. For data (closing prices) and execution, Group Two used real-time data from an API. In terms of technical analysis and signals, Group Two aimed to compose buy-hold-sell signals (Bollinger Bands, etc.) from indicators. Then, Group Two placed these signals through statistical models (RNN, etc.).
-This system requires several components for modeling. One component consists of leveraging the alpaca.com API for real-time information. Another component consists of composing ARMA, ARIMA, and GARCH statistical models for the price of TESLA stock. Yet another component consists of coding technical analysis indicators such as EWM, Bollinger Bands, and the volatility index for composing buy-hold-sell signals for TESLA stock. One other component consists of taking transcripts of TESLA meetings and tweets by the TESLA CEO, Elon Musk, leveraging Natural Language Processing (NLP) and VADER, and forming an additional buy-hold-sell signal. Yet another component consists of making a signal from Google Trends. Another component consists of taking all of the buy-hold-sell signals and placing them through an RNN. Yet another component consists of taking all of the buy-hold-sell signals and placing them through an LSTM. 
+This system requires several components for modeling. One component consists of leveraging the alpaca.com API for real-time information. Another component consists of composing autoregressive moving average (ARMA), autoregressive integrated moving average (ARIMA), and generalized autoregressive conditional heteroskedasticity (GARCH) statistical models for the price of TESLA stock. Furthermore, another component consists of coding the existing technical analysis indicators: Bollinger Band, Exponential Weighted Moving Average (EWM), Volatility Indicator. Yet another component consists of coding technical analysis indicators such as EWM, Bollinger Bands, and the volatility index for composing buy-hold-sell signals for TESLA stock. One other component consists of taking transcripts of TESLA meetings and tweets by the TESLA CEO, Elon Musk, leveraging Natural Language Processing (NLP) and Valence Aware Dictionary sEntiment Reasoning (VADER), and forming an additional buy-hold-sell signal. Yet another component consists of making a signal from Google Trends. Another component consists of taking all of the buy-hold-sell signals and placing them through a recurrent neural network (RNN). Yet another component consists of taking all of the buy-hold-sell signals and placing them through a long short term memory (LSTM) model. 
 
 #### API
 Group Two used the alpaca.com API for stock prices and for the trading interface(https://alpaca.markets). One source that Group Two used to leverage this site was https://www.youtube.com/watch?v=9R7pCh4yCm8&t=627s. Another source that Group Two leveraged was https://youtu.be/GsGeLHTOGAg. Group Two also registered at https://polygon.io. Furthermore, in terms of the establishment of dataframes and data cleaning, Group Two used the resources from https://github.com/rrag/react-stockcharts https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.dayofweek.html.
@@ -24,7 +36,7 @@ One can consider the Exponentially Weighted Moving Average (EWM) as a measure of
 ##### Volatility Trend Signal
 Group Two used a Volatility Trend Signal from the technical analysis library. It has been stated that “volatility-based indicators are valuable technical analysis tools that look at changes in market prices over a specified period of time… The faster prices change, the higher the volatility… The slower prices change, the lower the volatility…” (https://www.tradingview.com/scripts/volatility/). High volatility creates “buying opportunities” and an “exceptional trading ground” (https://www.investopedia.com/ask/answers/032715/which-market-indicators-reflect-volatility-stock-market.asp). In addition, volatility indicators may indicate trading momentum (https://pdfs.semanticscholar.org/1210/3afd2286e0b5c2fe28993eabdb045126c816.pdf). Group Two used a signal that comes from levaraging multiple windows, like for the EWM indicator.
 
-##### Natural Language Processing (NLP) and VADER
+##### Natural Language Processing (NLP) and Valence Aware Dictionary sEntiment Reasoning (VADER)
 Group Two leveraged transcripts from TESLA conference calls and tweets by Elon Musk for analysis by Natural Language Processing (NLP) and Valence Aware Dictionary sEntiment Reasoning (VADER). As done by previous scientists, Group Two assigned scores (https://towardsdatascience.com/sentimental-analysis-using-vader-a3415fef7664). These scores were divided among three values: -1, 0, 1. It was the intent of Group Two to compose a sentiment analysis and to determine meaning as in previous models (https://www.geeksforgeeks.org/python-sentiment-analysis-using-vader/). Group Two used the tweets from Elon Musk at https://www.kaggle.com/vidyapb/elon-musk-tweets-2015-to-2020. One could make the case that natural language processing (NLP) serves fundamentally to provide measurable meaning to words, phrases, idioms, sentences, and larger language structures (https://export.arxiv.org/ftp/arxiv/papers/1902/1902.00679.pdf). The idea is to provide scores to language structures based on criteria (https://nlp.stanford.edu/sentiment/). One could state that this process essentially is how a computer program turns "feelings into data" (https://digital.hbs.edu/platform-rctom/submission/turning-feelings-into-data-applying-natural-language-processing-to-employee-sentiment/). Group Two used NLP and VADER to determine a sentiment score of -1, 0, or 1. In the case of multiple tweets given on one day, the average was taken for a single score. Weekend tweets were omitted because of the extra time provided for the market to adjust to the weekend tweet.
 
 ##### Google Trends
@@ -74,6 +86,9 @@ The diagram directly above shows a graphic that provides the best description of
 
 
 ![Lidia Combograph](comb_matrix.PNG)
+
+
+
 The diagram directly above shows the RNN combination matrix through which Group Two made the attempt to find the most profitable model. 
 
 
@@ -101,11 +116,12 @@ The diagram directly above shows the model that Group Two ultimately used.
 
 
 
-Group Two was able to find a profitable model with the methodology. The model is illustrated at https://github.com/klleung72781/fintech_project_2/blob/main/TRADING_MODEL.ipynb. In terms of indicators used, this model results from the use of a single signal, the EWM with windows equal to 50 and 100.
+Group Two was able to find a potentially profitable model with the methodology. The model is illustrated at https://github.com/klleung72781/fintech_project_2/blob/main/TRADING_MODEL.ipynb. In terms of indicators used, this model results from the use of a single signal, the EWM with windows equal to 50 and 100.
 
 
 ## Conclusions
 
+One may draw as a conclusion from this project that it is possible to establish a trading system with an endogenous trading model that may generate profit. Furthermore, given the results, one may also gather that combinations of indicators and models may themselves serve as useful indicators for the prediction of prices and movements of prices. Group Two successfully composed a system trades automatically based on generated models from coded signals, but this system may provide further value as a tool for what is possible. It is worthy to note that the models could be run multiple times.
 
 
 ## Future Pursuits
@@ -152,19 +168,9 @@ Given extra time, Group Two would have developed the project even further with a
 35. random1_forest_model.joblib-This file is the joblib file for the random forest model.
 36. sentiment_analysis_TESLA.ipynb-This python notebook collected news about Elon Musk and assigned sentiment scores.
 37. tweet_date_df.csv-This comma separated value (CSV) file provides the final scores for the tweeting of the day; scores are either -1, 0, or 1.
-38. group of files including main readme and associated graphic PNG files.
+38. consisting of associated graphic PNG files for the readme file.
 
 
-
-
-## Installation
-
-Installation
-npm install --save react-stockcharts
-
-npm install -g wscat
-
-pip install bta-lib
 
 
 
