@@ -1,4 +1,5 @@
-# Group Two, Project Two Algorithmic Trading System
+# Algorithmic Trading System Repository
+
 
 
 
@@ -14,6 +15,7 @@ pip install bta-lib
 
 
 
+
 ## Introduction
 
 ### General
@@ -25,7 +27,7 @@ This system requires several components for modeling. One component consists of 
 Group Two used the alpaca.com API for stock prices and for the trading interface(https://alpaca.markets). One source that Group Two used to leverage this site was https://www.youtube.com/watch?v=9R7pCh4yCm8&t=627s. Another source that Group Two leveraged was https://youtu.be/GsGeLHTOGAg. Group Two also registered at https://polygon.io. Furthermore, in terms of the establishment of dataframes and data cleaning, Group Two used the resources from https://github.com/rrag/react-stockcharts https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.dayofweek.html.
 
 #### Technical Analysis Indicators
-Group Two leveraged code from https://github.com/mementum/bta-lib and from https://github.com/FreddieWitherden/ta in the composition of the technical analysis indicators.
+Group Two leveraged code from https://github.com/mementum/bta-lib and from https://github.com/bukosabino/ta in the composition of the technical analysis indicators.
 
 ##### Bollinger Band
 One may consider a Bollinger Band as an indicator “defined by a set of trendlines [set] two standard deviations (positively and negatively) away from a simple moving average (SMA) of a security's price” (https://www.investopedia.com/terms/b/bollingerbands.asp). The Bollinger Band has also been described as “envelopes” that are set “at standard deviation level above and below a simple moving average of the price” (https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/bollinger-bands). Also, it has been stated that the Bollinger Band helps to “determine whether prices are high or low on a relative basis” (https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/bollinger-bands). The Bollinger Band was invented by John Bollinger (https://www.bollingerbands.com/). 
@@ -121,12 +123,12 @@ Group Two was able to find a potentially profitable model with the methodology. 
 
 ## Conclusions
 
-One may draw as a conclusion from this project that it is possible to establish a trading system with an endogenous trading model that may generate profit. Furthermore, given the results, one may also gather that combinations of indicators and models may themselves serve as useful indicators for the prediction of prices and movements of prices. Group Two successfully composed a system trades automatically based on generated models from coded signals, but this system may provide further value as a tool for what is possible. It is worthy to note that the models could be run multiple times.
+One may draw as a conclusion from this project that it is possible to establish a trading system with an endogenous trading model that may generate profit. Furthermore, given the results, one may also gather that combinations of indicators and models may themselves serve as useful indicators for the prediction of prices and movements of prices. Group Two successfully composed a system trades automatically based on generated models from coded signals, but this system may provide further value as a tool for what is possible. It is worthy to note that the models could be iterated multiple times.
 
 
 ## Future Pursuits
 
-Given extra time, Group Two would have developed the project even further with at least three extra endeavors: 1) development of ability to conduct trades on the one minute timeframe, 2) developing user activity and capability on the dashboard, 3) development of parent artificial intelligence system that explores every single combination of use of indicators. 
+Given extra time, Group Two would have developed the project even further with at least three extra endeavors: 1) development of ability to conduct trades on the one minute timeframe, 2) developing user activity and capability on the dashboard, 3) development of parent artificial intelligence system that explores every single combination of use of indicators. In terms of the ability to conduct trades on the one minute timeframe, a trading platform that offers the option of placing trades whenever possible would provide the most value. Also, in terms of further development of user activity, the current abilities provide promise for the system, and more capabilities and options would draw more users. With more time, Group Two could probably benefit most from developing an artificial intelligence system for the models themselves. Such a system would consider each and every combination of the trading from each and every technical analysis indicator and provide the complete range of possible outcomes.
 
 
 ## Description of Files
@@ -168,9 +170,7 @@ Given extra time, Group Two would have developed the project even further with a
 35. random1_forest_model.joblib-This file is the joblib file for the random forest model.
 36. sentiment_analysis_TESLA.ipynb-This python notebook collected news about Elon Musk and assigned sentiment scores.
 37. tweet_date_df.csv-This comma separated value (CSV) file provides the final scores for the tweeting of the day; scores are either -1, 0, or 1.
-38. consisting of associated graphic PNG files for the readme file.
-
-
+38. consisting of associated graphic PNG files for the readme file(s).
 
 
 
