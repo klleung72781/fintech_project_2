@@ -1,4 +1,4 @@
-# Group Two, Project Two Algorithmic Trading System
+# Algorithmic Trading System
 
 
 
@@ -145,11 +145,11 @@ The diagram directly above shows the model that Group Two ultimately used.
 ## Installation
 
 Installation
-npm install --save react-stockcharts
+`npm install --save react-stockcharts`
 
-npm install -g wscat
+`npm install -g wscat`
 
-pip install bta-lib
+`pip install bta-lib`
 
 
 
